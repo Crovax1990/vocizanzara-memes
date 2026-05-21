@@ -849,12 +849,9 @@
                 if (!groups[item.t]) groups[item.t] = [];
                 groups[item.t].push(item);
             }
-            const keys = Object.keys(groups).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-            const result = [];
-            for (const key of keys) {
-                result.push({ tag: key, clips: groups[key] });
-            }
-            return result;
+            const entries = Object.entries(groups);
+            entries.sort((a, b) => b[1].length - a[1].length || a[0].toLowerCase().localeCompare(b[0].toLowerCase()));
+            return entries.map(([tag, clips]) => ({ tag, clips }));
         }
 
         function render() {
